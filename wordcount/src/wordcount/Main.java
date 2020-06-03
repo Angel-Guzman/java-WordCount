@@ -31,20 +31,29 @@ public class Main
         Map<String, Integer> countWordsHashMap = new HashMap<>();
         for (String word : wordsArray)
         {
-                String lowerWord = word.toLowerCase();
-                if (countWordsHashMap.containsKey(lowerWord))
+            String upperWord = word.toUpperCase();
+            if (countWordsHashMap.containsKey(upperWord))
             {
-                countWordsHashMap.put(lowerWord, countWordsHashMap.get(lowerWord) + 1);
-            }
-                else 
+                countWordsHashMap.put(upperWord, countWordsHashMap.get(upperWord) + 1);
+            } else 
             {
-                countWordsHashMap.put(lowerWord, 1);
+                countWordsHashMap.put(upperWord, 1);
             }
         }
         System.out.println(countWordsHashMap);
 
         List<HashMap.Entry> sortedCountWordsMap = new ArrayList<>(countWordsHashMap.entrySet());
-        sortedCountWordsMap.sort(Comparator.comparing (o -> o.getValue()));
+        sortedCountWordsMap.sort(Comparator.comparing (o -> (int)o.getValue(), Comparator.reverseOrder()));
+
+        int wordNum = 1;
+        for (HashMap.Entry word : sortedCountWordsMap) 
+        {
+            if (wordNum != 51)
+            {
+                System.out.println(wordNum + ") " + word.getKey() + " occurs " + word.getValue() + " times.");
+                wordNum++;
+            }
+        }
 
     }
 }
